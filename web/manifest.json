@@ -1,6 +1,6 @@
 {
-    "name": "p_230203_testproj",
-    "short_name": "p_230203_testproj",
+    "name": "testp",
+    "short_name": "testp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

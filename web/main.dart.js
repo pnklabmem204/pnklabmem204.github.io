@@ -71630,7 +71630,7 @@ s.d=r
 A.e9("Barcode Type: "+A.au4(r.b)+" Data: "+A.h(s.d.a))},
 $S:0}
 A.nz.prototype={
-ad(){return new A.OB(A.wT(A.fR("ws://st230104.cafe24app.com",0,null),null),B.j)}}
+ad(){return new A.OB(A.wT(A.fR("wss://st230104.cafe24app.com",0,null),null),B.j)}}
 A.al4.prototype={}
 A.OB.prototype={
 bQ(){var s=0,r=A.M(t.z),q=this
@@ -71660,7 +71660,7 @@ r=this.r.r.b
 r===$&&A.b()
 r=r.b
 r===$&&A.b()
-return A.m6(q,A.rN(A.e_(A.a([o,n,A.aM(A.Lx(new A.aej(),q,new A.bW(r,A.j(r).i("bW<1>")),t.z),s.b-40-48-99.8-20,q),A.e_(A.a([A.aM(q,20,q),new A.cI(B.fr,q,q,A.wW("images/pnk_logo.png",B.cO,q,150),q),A.aM(q,30,q)],p),B.ax,B.az,B.H)],p),B.ax,B.cs,B.H),new A.aq(40,40,40,0),B.O))},
+return A.m6(q,A.rN(A.e_(A.a([o,n,A.aM(A.Lx(new A.aej(),q,new A.bW(r,A.j(r).i("bW<1>")),t.z),s.b-40-48-99.8-20,q),A.e_(A.a([A.aM(q,20,q),new A.cI(B.fr,q,q,A.wW("assets/images/pnk_logo.png",B.cO,q,150),q),A.aM(q,30,q)],p),B.ax,B.az,B.H)],p),B.ax,B.cs,B.H),new A.aq(40,40,40,0),B.O))},
 m(){this.r.gcp().bh(0)
 this.aD()}}
 A.aek.prototype={
@@ -71739,7 +71739,7 @@ m.push(A.kp(A.a([A.e_(q,B.cm,B.az,B.H)],n),B.H))
 return A.by(r,A.e_(m,B.ax,B.az,B.H),r,r,r,r,r,r,new A.aq(10,30,10,0),r)},
 $S:446}
 A.i2.prototype={
-ad(){var s=A.wT(A.fR("ws://st230104.cafe24app.com",0,null),null),r=$.aN()
+ad(){var s=A.wT(A.fR("wss://st230104.cafe24app.com",0,null),null),r=$.aN()
 return new A.P4(s,new A.t5(B.dF,r),new A.t5(B.dF,r),B.j)}}
 A.P4.prototype={
 al(){this.aG()
@@ -71753,7 +71753,7 @@ r=r.aU(0,q==null?A.am():q)
 q=s.gbk()
 p=s.w
 q=A.aM(f,(q.aU(0,p==null?A.am():p).b-491)/2-40,f)
-p=A.wW("images/pnk_logo.png",B.cO,f,250)
+p=A.wW("assets/images/pnk_logo.png",B.cO,f,250)
 o=A.aM(f,80,f)
 n=s.gbk()
 m=s.w
@@ -71801,7 +71801,7 @@ $0(){var s=this.a
 if(A.Ea(s.e.a.a,s.f.a.a,this.b,this.c))s.d.gcp().bh(0)},
 $S:11}
 A.od.prototype={
-ad(){return new A.Qq(A.wT(A.fR("ws://st230104.cafe24app.com",0,null),null),B.j)}}
+ad(){return new A.Qq(A.wT(A.fR("wss://st230104.cafe24app.com",0,null),null),B.j)}}
 A.Qq.prototype={
 bQ(){var s=0,r=A.M(t.z),q=this
 var $async$bQ=A.N(function(a,b){if(a===1)return A.J(b,r)
@@ -71845,7 +71845,7 @@ i=A.a([s,r,new A.yv(q,250,g),o,n,m,l,j,A.ln(A.b5("\uac74\uc758\uc0ac\ud56d \uc79
 if(!h.w)B.b.L(i,A.a([A.kp(A.a([A.HD(A.lv(B.C6,new A.R(f),36),new A.aga(h),g),A.b5("\uc774\uc6a9\ubc29\ubc95",g,g,g,$.Ek(),g,g)],p),B.H)],p))
 else B.b.L(i,A.a([A.kp(A.a([A.HD(A.lv(B.C5,new A.R(f),36),new A.agb(h),g),A.b5("\uc774\uc6a9\ubc29\ubc95",g,g,g,$.Ek(),g,g)],p),B.H),A.b5("1. \uc785\uc7a5 \uc2dc\uac04 \uae30\ub85d\uc744 \uc704\ud574 \uc2a4\uce90\ub108\uc5d0 \uac1c\uc778 QR\ucf54\ub4dc\ub97c \uc2a4\uce94\ud574\uc8fc\uc138\uc694\n2. \uc6b4\ub3d9 \uc2dc\uac04 \uae30\ub85d\uc744 \uc704\ud574 \uc6b4\ub3d9 \uc2dc\uc791 \ubc84\ud2bc\uc744 \ub20c\ub7ec \uc6b4\ub3d9\uae30\uad6c\uc758 QR\ucf54\ub4dc\ub97c \uc2a4\uce94\ud574\uc8fc\uc138\uc694\n3. \uc6b4\ub3d9\uc885\ub8cc \ubc84\ud2bc\uc744 \ub20c\ub7ec \uc6b4\ub3d9\uc744 \uc885\ub8cc\ud574\uc8fc\uc138\uc694\n4. \ud1f4\uc7a5\uc2dc \uc785\uc7a5\uacfc \ub9c8\ucc2c\uac00\uc9c0\ub85c \uc2a4\uce90\ub108\uc5d0 \uac1c\uc778 QR\ucf54\ub4dc\ub97c \uc2a4\uce94\ud574\uc8fc\uc138\uc694",g,g,g,$.aoR(),g,g)],p))
 i.push(A.aM(g,50,g))
-i.push(A.fO(B.au,A.a([new A.cI(B.cc,g,g,A.wW("images/pnk_logo.png",B.cO,g,150),g),new A.cI(B.fq,g,g,A.LN(A.b5("\ub85c\uadf8\uc544\uc6c3",g,g,g,$.aly(),g,g),new A.agc(h),g),g)],p),B.aS))
+i.push(A.fO(B.au,A.a([new A.cI(B.cc,g,g,A.wW("assets/images/pnk_logo.png",B.cO,g,150),g),new A.cI(B.fq,g,g,A.LN(A.b5("\ub85c\uadf8\uc544\uc6c3",g,g,g,$.aly(),g,g),new A.agc(h),g),g)],p),B.aS))
 i.push(A.aM(g,30,g))
 s=h.d.r.b
 s===$&&A.b()
@@ -71967,7 +71967,7 @@ r.push(A.aM(n,25,n))
 q=A.mP()
 r.push(A.ln(A.b5("\ud5ec\uc2a4\uc7a5 \uccb4\ud06c\uc544\uc6c3",n,n,n,$.awY(),n,n),new A.ags(o),q.e))
 r.push(A.aM(n,50,n))
-r.push(A.fO(B.au,A.a([new A.cI(B.cc,n,n,A.wW("images/pnk_logo.png",B.cO,n,150),n),new A.cI(B.fq,n,n,A.LN(A.b5("\ub85c\uadf8\uc544\uc6c3",n,n,n,$.aly(),n,n),new A.agt(),n),n)],p),B.aS))
+r.push(A.fO(B.au,A.a([new A.cI(B.cc,n,n,A.wW("assets/images/pnk_logo.png",B.cO,n,150),n),new A.cI(B.fq,n,n,A.LN(A.b5("\ub85c\uadf8\uc544\uc6c3",n,n,n,$.aly(),n,n),new A.agt(),n),n)],p),B.aS))
 r.push(A.aM(n,30,n))
 return A.m6(n,A.by(n,A.rN(A.e_(r,B.ax,B.az,B.H),new A.aq(40,40,40,0),B.O),n,n,n,s.b,n,n,n,n))}}
 A.agu.prototype={
@@ -72024,7 +72024,7 @@ case 2:return A.K(null,r)}})
 return A.L($async$$0,r)},
 $S:7}
 A.of.prototype={
-ad(){return new A.Qx(A.wT(A.fR("ws://st230104.cafe24app.com",0,null),null),new A.cS(Date.now(),!1),A.aBL(B.wg),B.j)}}
+ad(){return new A.Qx(A.wT(A.fR("wss://st230104.cafe24app.com",0,null),null),new A.cS(Date.now(),!1),A.aBL(B.wg),B.j)}}
 A.Qx.prototype={
 bQ(){var s=0,r=A.M(t.z),q=this
 var $async$bQ=A.N(function(a,b){if(a===1)return A.J(b,r)
@@ -72101,7 +72101,7 @@ a0===$&&A.b()
 n=A.by(B.J,A.e_(A.a([m,l,k,j,i,h,g,f,e,d,c,b,a,A.by(a2,A.Lx(new A.agz(a1),a0.gn(a0),a0,t.S),a2,a2,a2,a2,a2,a2,a2,o.a)],s),B.ax,B.cs,B.H),a2,a2,a2,n.b-373.8-40-10,a2,a2,a2,a2)
 o=A.aM(a2,50,a2)
 a0=A.mP()
-return A.m6(a2,A.rN(A.e_(A.a([a3,a4,r,q,p,n,o,A.ln(A.b5("\uc6b4\ub3d9 \uc885\ub8cc",a2,a2,a2,$.Up(),a2,a2),new A.agA(a1),a0.f),A.aM(a2,50,a2),A.fO(B.au,A.a([new A.cI(B.fr,a2,a2,A.wW("images/pnk_logo.png",B.cO,a2,150),a2)],s),B.aS),A.aM(a2,30,a2)],s),B.ax,B.az,B.H),new A.aq(40,40,40,0),B.O))}}
+return A.m6(a2,A.rN(A.e_(A.a([a3,a4,r,q,p,n,o,A.ln(A.b5("\uc6b4\ub3d9 \uc885\ub8cc",a2,a2,a2,$.Up(),a2,a2),new A.agA(a1),a0.f),A.aM(a2,50,a2),A.fO(B.au,A.a([new A.cI(B.fr,a2,a2,A.wW("assets/images/pnk_logo.png",B.cO,a2,150),a2)],s),B.aS),A.aM(a2,30,a2)],s),B.ax,B.az,B.H),new A.aq(40,40,40,0),B.O))}}
 A.agB.prototype={
 $0(){},
 $S:0}
@@ -72153,7 +72153,7 @@ A.zH.prototype={
 ad(){return new A.RC(B.j)}}
 A.RC.prototype={
 al(){A.bK(A.bA(0,3000,0),new A.ahD(this))},
-J(a){return A.m6(null,A.aBE(B.k,B.El,1e4,100,"images/pnk_logo.png",new A.i2(null),B.Pu))}}
+J(a){return A.m6(null,A.aBE(B.k,B.El,1e4,100,"assets/images/pnk_logo.png",new A.i2(null),B.Pu))}}
 A.ahD.prototype={
 $0(){var s,r=this.a.c
 r.toString
@@ -72339,7 +72339,7 @@ return A.K(null,r)}})
 return A.L($async$lh,r)},
 li(a){var s=0,r=A.M(t.z),q,p
 var $async$li=A.N(function(b,c){if(b===1)return A.J(c,r)
-while(true)switch(s){case 0:p=A.wT(A.fR("ws://st230104.cafe24app.com",0,null),null)
+while(true)switch(s){case 0:p=A.wT(A.fR("wss://st230104.cafe24app.com",0,null),null)
 p.gcp().a.E(0,B.c.N("K4|",a))
 p.gcp().bh(0)
 q=$.jK()
@@ -72352,7 +72352,7 @@ return A.G(A.eg($.aI(),"/qrcode",null,t.z),$async$li)
 case 4:return A.K(null,r)}})
 return A.L($async$li,r)}}
 A.U9.prototype={
-Ee(a){var s=A.wT(A.fR("ws://st230104.cafe24app.com",0,null),null)
+Ee(a){var s=A.wT(A.fR("wss://st230104.cafe24app.com",0,null),null)
 s.gcp().a.E(0,a)
 s.gcp().bh(0)}}
 A.a4p.prototype={

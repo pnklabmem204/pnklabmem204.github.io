@@ -71615,7 +71615,7 @@ s.d=r
 A.e8("Barcode Type: "+A.au_(r.b)+" Data: "+A.h(s.d.a))},
 $S:0}
 A.nx.prototype={
-ad(){return new A.OA(A.wS(A.fR("wss://st230104.cafe24app.com",0,null),null),B.j)}}
+ad(){return new A.OA(A.wS(A.fR("ws://st230104.cafe24app.com",0,null),null),B.j)}}
 A.al1.prototype={}
 A.OA.prototype={
 bQ(){var s=0,r=A.M(t.z),q=this
@@ -71724,7 +71724,7 @@ m.push(A.kp(A.a([A.e_(q,B.cm,B.az,B.H)],n),B.H))
 return A.by(r,A.e_(m,B.ax,B.az,B.H),r,r,r,r,r,r,new A.aq(10,30,10,0),r)},
 $S:446}
 A.i2.prototype={
-ad(){var s=A.wS(A.fR("wss://st230104.cafe24app.com",0,null),null),r=$.aN()
+ad(){var s=A.wS(A.fR("ws://st230104.cafe24app.com",0,null),null),r=$.aN()
 return new A.P3(s,new A.t5(B.dF,r),new A.t5(B.dF,r),B.j)}}
 A.P3.prototype={
 al(){this.aG()
@@ -71786,7 +71786,7 @@ $0(){var s=this.a
 if(A.E9(s.e.a.a,s.f.a.a,this.b,this.c))s.d.gcp().bh(0)},
 $S:11}
 A.oa.prototype={
-ad(){return new A.Qp(A.wS(A.fR("wss://st230104.cafe24app.com",0,null),null),B.j)}}
+ad(){return new A.Qp(A.wS(A.fR("ws://st230104.cafe24app.com",0,null),null),B.j)}}
 A.Qp.prototype={
 bQ(){var s=0,r=A.M(t.z),q=this
 var $async$bQ=A.N(function(a,b){if(a===1)return A.J(b,r)
@@ -72009,7 +72009,7 @@ case 2:return A.K(null,r)}})
 return A.L($async$$0,r)},
 $S:7}
 A.oc.prototype={
-ad(){return new A.Qw(A.wS(A.fR("wss://st230104.cafe24app.com",0,null),null),new A.cS(Date.now(),!1),A.aBG(B.wg),B.j)}}
+ad(){return new A.Qw(A.wS(A.fR("ws://st230104.cafe24app.com",0,null),null),new A.cS(Date.now(),!1),A.aBG(B.wg),B.j)}}
 A.Qw.prototype={
 bQ(){var s=0,r=A.M(t.z),q=this
 var $async$bQ=A.N(function(a,b){if(a===1)return A.J(b,r)
@@ -72324,7 +72324,7 @@ return A.K(null,r)}})
 return A.L($async$lh,r)},
 li(a){var s=0,r=A.M(t.z),q,p
 var $async$li=A.N(function(b,c){if(b===1)return A.J(c,r)
-while(true)switch(s){case 0:p=A.wS(A.fR("wss://st230104.cafe24app.com",0,null),null)
+while(true)switch(s){case 0:p=A.wS(A.fR("ws://st230104.cafe24app.com",0,null),null)
 p.gcp().a.E(0,B.c.N("K4|",a))
 p.gcp().bh(0)
 q=$.jK()
@@ -72337,7 +72337,7 @@ return A.G(A.ef($.aI(),"/qrcode",null,t.z),$async$li)
 case 4:return A.K(null,r)}})
 return A.L($async$li,r)}}
 A.U8.prototype={
-Ee(a){var s=A.wS(A.fR("wss://st230104.cafe24app.com",0,null),null)
+Ee(a){var s=A.wS(A.fR("ws://st230104.cafe24app.com",0,null),null)
 s.gcp().a.E(0,a)
 s.gcp().bh(0)}}
 A.yt.prototype={

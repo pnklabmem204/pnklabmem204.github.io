@@ -1,6 +1,6 @@
 {
-    "name": "p_230113_webcameratest",
-    "short_name": "p_230113_webcameratest",
+    "name": "p_230207_webcam",
+    "short_name": "p_230207_webcam",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

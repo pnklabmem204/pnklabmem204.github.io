@@ -1,18 +1,59 @@
-<!doctype html>
-<html lang="en">
- <head>
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/exerciseLevel/">
+
   <meta charset="UTF-8">
-  <title>다운로드</title>
- </head>
- <body>
-  <h1><a href="itms-services://?action=download-manifest&url=https://dl.dropboxusercontent.com/scl/fi/uvp0ufmm7l07xm6ebtn38/manifest.plist?rlkey=xkyb7j7l6y8zennzzlk4ykubx&st=8xlfgs0t">설치</a></h1>
-<a 
-href="itms-services://?action=download-manifest&url=https://dl.dropboxusercontent.com/scl/fi/uvp0ufmm7l07xm6ebtn38/manifest.plist?rlkey=xkyb7j7l6y8zennzzlk4ykubx&st=8xlfgs0t">
-다운로드</a>
-  </br>
-  <h2><a href="https://dl.dropboxusercontent.com/scl/fi/5tef6eap33ysl1tdl06j0/obtaining_exercise_information.ipa?rlkey=6tt4etzmzcgcq3qn30lo3foq0&amp;st=mqgd9tjt">ipa 다운로드</a></h2>
-  <h2><a href="https://dl.dropboxusercontent.com/scl/fi/uvp0ufmm7l07xm6ebtn38/manifest.plist?rlkey=xkyb7j7l6y8zennzzlk4ykubx&st=8xlfgs0t">manifest 다운로드</a></h2>
- </body>
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="obtaining_exercise_information">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>obtaining_exercise_information</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = "2221468536";
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
+</body>
 </html>
-
-

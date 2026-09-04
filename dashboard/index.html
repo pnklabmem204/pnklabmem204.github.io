@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Research Command Center</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="mode-level1">
+  <main class="dashboard-shell">
+    <header class="executive-compass section">
+      <div class="top-line">
+        <div>
+          <p class="eyebrow">RESEARCH COMMAND CENTER</p>
+          <h1>연구소 업무 총괄</h1>
+        </div>
+        <div class="header-right-meta-group">
+          <!-- 2-Level Segmented Switcher (1단계: 통합 뷰, 2단계: 전체 상세 뷰) -->
+          <div class="mode-segmented-control" role="group" aria-label="대시보드 뷰 모드">
+            <button class="mode-btn active" id="btnModeLevel1" title="1단계: 나침반, 확장형 포트폴리오(Workstream 목록 포함) 뷰 (Tab으로 전환)">
+              <span class="mode-icon">1️⃣</span>
+              <span>1단계</span>
+            </button>
+            <button class="mode-btn" id="btnModeLevel2" title="2단계: CORE MINDSET & DIRECTIVES, RESEARCH PORTFOLIO, NEXT CONTROL 뷰 (Tab으로 전환)">
+              <span class="mode-icon">2️⃣</span>
+              <span>2단계</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="compass-line">
+        <span class="section-kicker">THIS WEEK COMPASS</span>
+        <strong>연구소 전체 업무를 Top-down으로 통합하고, Smart Hanger의 성능 검증과 제품화 허들을 먼저 제거</strong>
+      </div>
+    </header>
+
+    <section class="section mindset-section">
+      <div class="section-heading">
+        <div>
+          <span class="section-index">★</span>
+          <h2>CORE MINDSET & DIRECTIVES</h2>
+        </div>
+        <p>소장 요구사항 핵심 3원칙 · 상시 견지 지침</p>
+      </div>
+      <div id="mindsetList" class="mindset-control"></div>
+    </section>
+
+    <div class="primary-grid">
+      <section class="section portfolio-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-index">A</span>
+            <h2>RESEARCH PORTFOLIO</h2>
+          </div>
+          <p>연구소 전체 상위 업무 · 행 클릭 시 Workstream 목록 확장</p>
+        </div>
+
+        <div class="portfolio-table" role="table" aria-label="연구소 전체 프로젝트">
+          <div class="portfolio-row portfolio-head" role="row">
+            <div class="portfolio-row-inner">
+              <span class="col-name">프로젝트</span>
+              <span class="col-target-date">목표일</span>
+              <span class="col-status">상태</span>
+              <span class="col-progress">진행도</span>
+            </div>
+          </div>
+          <div id="portfolioRows"></div>
+        </div>
+      </section>
+
+      <!-- [삭제 금지 / DO NOT DELETE] 추후 요청 시 주석 해제하여 즉시 재사용할 수 있도록 보존함: BOTTLENECK → ACTION
+      <section class="section bottleneck-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-index">B</span>
+            <h2>BOTTLENECK → ACTION</h2>
+          </div>
+          <p>현재 판단에 직접 영향을 주는 허들만 노출 · 카드 클릭 시 상세/근거 펼침</p>
+        </div>
+        <div id="riskList" class="risk-list"></div>
+      </section>
+      -->
+    </div>
+
+    <!-- [삭제 금지 / DO NOT DELETE] 추후 요청 시 주석 해제하여 즉시 재사용할 수 있도록 보존함: GROUND TRUTH, CONTROL COVERAGE
+    <div class="secondary-grid">
+      <section class="section truth-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-index">C</span>
+            <h2>GROUND TRUTH</h2>
+          </div>
+          <p>Progress가 아니라 성공기준 대비 실제값</p>
+        </div>
+        <div id="truthRows" class="truth-list"></div>
+      </section>
+
+      <section class="section coverage-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-index">D</span>
+            <h2>CONTROL COVERAGE</h2>
+          </div>
+          <p>“관리한다”는 주장 대신 문서의 추적 가능성을 수치화</p>
+        </div>
+        <div id="coverageRows" class="coverage-list"></div>
+        <div id="coverageExceptions" class="coverage-exceptions"></div>
+      </section>
+    </div>
+    -->
+
+    <section class="section next-section">
+      <div class="section-heading">
+        <div>
+          <span class="section-index">E</span>
+          <h2>NEXT CONTROL</h2>
+        </div>
+        <p>과거 마감일을 임의 연장하지 않고 확인이 필요한 상태로 표시</p>
+      </div>
+      <div id="nextControl" class="next-control"></div>
+    </section>
+
+    <footer>
+      <span>Source: 2026년 08월-09월 연구소 전체 회의록 기반 통합 업무 총람</span>
+      <span>UI principle: Progress ≠ Status ≠ Ground Truth</span>
+    </footer>
+  </main>
+
+  <dialog id="evidenceDialog" class="evidence-dialog">
+    <div class="dialog-head">
+      <div>
+        <span class="section-kicker">EVIDENCE</span>
+        <h3 id="evidenceTitle">근거</h3>
+      </div>
+      <button id="closeEvidence" type="button" aria-label="닫기">×</button>
+    </div>
+    <div id="evidenceBody" class="evidence-body"></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+{
+  "mainProjectId": "smart-hanger",
+  "summary": {
+    "overallStatus": "progress",
+    "overallProgress": 52,
+    "critical": 3,
+    "attention": 16,
+    "actionItems": 53,
+    "explicitCompleted": 10,
+    "statusUnconfirmed": 43,
+    "decisionNeeded": 0,
+    "headline": "연구소 핵심 프로젝트 목표 일정 정립 완료: 스마트 행거 '데모 행거 제작(500mm 단면인식 해결 및 단/양방향 실험·재조립, 레일 캡 재출력)'은 9/3(목) 마무리를 목표로 집중 추진 중이며, '시범사이트 상시 데모 상태 유지 및 하드웨어 제작' 프로젝트 전체와 나머지 워크스트림(1200mm 자재 발주·제작 점검, 의류인식대, 페르소나/시나리오, 대시보드 상태조회, 2층 DX 및 CC-Retail 192.168.0.X, ADB 녹화 증빙, 쇼룸 HW) 및 '앱 개발 및 배포 AI 기반 워크플로우 구축' 내 모든 워크스트림(데모 행거 픽업/다운 확인 앱 배포 등)의 목표일은 9/4(금)로 일괄 정립되었습니다. AgriTech 비료 투입기 실험 및 센서 파악/방수는 장준우 인턴을 통해 9/4(금)까지 진행됩니다."
+  },
+  "coverage": {
+    "totalActions": 53,
+    "ownerAssigned": 53,
+    "targetFieldPresent": 53,
+    "explicitCompleted": 10,
+    "stateUnconfirmed": 43,
+    "note": "Action Matrix 53건 기준. 스마트 행거 단면 인식 원인 해결, ADB 통합 녹화 완료, 목향농원 복사 계정 생성, 인턴 아웃보딩 과제 완수 등 반영."
+  },
+  "nextControl": {
+    "today": [
+      {
+        "label": "스마트 행거 데모 행거 제작 마무리 (단/양방향 실험 후 조립 재개)",
+        "status": "progress",
+        "meta": "09/03 목"
+      },
+      {
+        "label": "사각 파이프용 레일 캡 3D 치수 축소 재출력 및 파이프 체결 검증",
+        "status": "progress",
+        "meta": "09/03 목"
+      }
+    ],
+    "week": [
+      {
+        "label": "스마트 행거 본 행거 (1200mm 1개) 자재 추가 발주 및 제작 점검 (7슬롯 NFC/스텐 치수/발주 RISK)",
+        "status": "risk",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "스마트 행거 중간형 제작 지원 (장준우 인턴: master 보드 케이스 제작 진행 중, NFC 모듈)",
+        "status": "progress",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "의류인식대 H/W 제작 및 점검",
+        "status": "progress",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "사용자별 페르소나 및 이용 시나리오 정의",
+        "status": "progress",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "대시보드를 통한 구동 상태 파악 체계 (상태 조회)",
+        "status": "progress",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "2층 공간 DX 및 네트워크 음영 제거 (CC-Retail 와이파이 192.168.0.X 포함)",
+        "status": "progress",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "기구 설계 / 전장 회로(JST·22m 전원) / NFC 성능 검증",
+        "status": "progress",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "스타일링 부스 H/W 제작 및 적용",
+        "status": "pending",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "실험 데이터 및 녹화 영상 구글 넘버링 폴더링 업로드 완료",
+        "status": "progress",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "장준우 인턴 연계 비료 정량 투입기 실험 진행 (기구 걸림 해결)",
+        "status": "progress",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "온습도 센서 전체 현황 파악 및 방수 가능 구조 개선 (장준우 인턴)",
+        "status": "pending",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "데모 행거 픽업/픽다운 확인용 앱 제작을 통한 배포 워크플로우 적용 (사실상 PENDING)",
+        "status": "pending",
+        "meta": "09/04 금"
+      },
+      {
+        "label": "앱 개발 및 배포 AI 기반 워크플로우 구축 (무인 E2E, 리눅스 온보딩, 디바이스팜)",
+        "status": "pending",
+        "meta": "09/04 금"
+      }
+    ],
+    "next": [
+      {
+        "label": "현장형 스마트 행거 및 쇼룸 인프라 통합 검증",
+        "status": "unknown",
+        "meta": "09/04 이후"
+      },
+      {
+        "label": "온습도 센서 방수 하우징 현장 설치 및 데이터 수집",
+        "status": "unknown",
+        "meta": "09월 초"
+      },
+      {
+        "label": "ATC 과제 성과물 시범사업 연결 및 성과 창출 (3대 3,000kg 역량 증명)",
+        "status": "unknown",
+        "meta": "9월 시범사업"
+      }
+    ]
+  }
+}

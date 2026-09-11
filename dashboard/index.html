@@ -1,3 +1,10 @@
+<!--
+> **Header Metadata**  
+> - **Created At**: 2026-09-04 13:16:32  
+> - **Author Agent**: Gemini 3.8 Flash  
+> - **Document Version**: v1.0  
+> - **Updated At**: 2026-09-11 10:35:00  
+-->
 <!doctype html>
 <html lang="ko">
 <head>
@@ -8,30 +15,60 @@
 </head>
 <body class="mode-level1">
   <main class="dashboard-shell">
-    <header class="executive-compass section">
-      <div class="top-line">
-        <div>
-          <p class="eyebrow">RESEARCH COMMAND CENTER</p>
-          <h1>연구소 업무 총괄</h1>
+    <header class="executive-compass section hero-2col-section">
+      <!-- 좌측 열: 월별 캘린더 (일~토, 오늘 하이라이트, 프로젝트 마감일 이벤트 뱃지 및 툴팁) -->
+      <div class="hero-left-calendar">
+        <div class="calendar-header">
+          <div class="calendar-title-group">
+            <span class="calendar-kicker">MONTHLY MILESTONE CALENDAR</span>
+            <h3 id="calendarMonthTitle">2026년 9월</h3>
+          </div>
+          <div class="calendar-legend">
+            <span class="legend-item"><span class="legend-dot today-dot"></span>오늘</span>
+            <span class="legend-item"><span class="legend-dot event-dot"></span>마감일</span>
+          </div>
         </div>
-        <div class="header-right-meta-group">
-          <!-- 2-Level Segmented Switcher (1단계: 통합 뷰, 2단계: 전체 상세 뷰) -->
-          <div class="mode-segmented-control" role="group" aria-label="대시보드 뷰 모드">
-            <button class="mode-btn active" id="btnModeLevel1" title="1단계: 나침반, 확장형 포트폴리오(Workstream 목록 포함) 뷰 (Tab으로 전환)">
-              <span class="mode-icon">1️⃣</span>
-              <span>1단계</span>
-            </button>
-            <button class="mode-btn" id="btnModeLevel2" title="2단계: CORE MINDSET & DIRECTIVES, RESEARCH PORTFOLIO, NEXT CONTROL 뷰 (Tab으로 전환)">
-              <span class="mode-icon">2️⃣</span>
-              <span>2단계</span>
-            </button>
+        <div class="calendar-grid-container">
+          <div class="calendar-weekdays">
+            <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+          </div>
+          <div id="calendarDays" class="calendar-days-grid">
+            <!-- JS 동적 생성 -->
           </div>
         </div>
       </div>
 
-      <div class="compass-line">
-        <span class="section-kicker">THIS WEEK COMPASS</span>
-        <strong>연구소 전체 업무를 Top-down으로 통합하고, Smart Hanger의 성능 검증과 제품화 허들을 먼저 제거</strong>
+      <!-- 우측 열: 기존 헤더 내용 (제목, 아카이브 버튼, 뷰 모드 스위처, 나침반) -->
+      <div class="hero-right-content">
+        <div class="top-line">
+          <div>
+            <p class="eyebrow">RESEARCH COMMAND CENTER</p>
+            <h1>연구소 업무 총괄</h1>
+          </div>
+          <div class="header-right-meta-group">
+            <!-- Monthly Done Archive Button -->
+            <button class="archive-nav-btn" id="btnOpenArchive" title="지난달 및 과거 완료(PASS) 업무 이력 조회">
+              <span class="btn-icon">📁</span>
+              <span>완료 업무 아카이브</span>
+            </button>
+            <!-- 2-Level Segmented Switcher (1단계: 통합 뷰, 2단계: 전체 상세 뷰) -->
+            <div class="mode-segmented-control" role="group" aria-label="대시보드 뷰 모드">
+              <button class="mode-btn active" id="btnModeLevel1" title="1단계: 나침반, 확장형 포트폴리오(Workstream 목록 포함) 뷰 (Tab으로 전환)">
+                <span class="mode-icon">1️⃣</span>
+                <span>1단계</span>
+              </button>
+              <button class="mode-btn" id="btnModeLevel2" title="2단계: CORE MINDSET & DIRECTIVES, RESEARCH PORTFOLIO, NEXT CONTROL 뷰 (Tab으로 전환)">
+                <span class="mode-icon">2️⃣</span>
+                <span>2단계</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="compass-line">
+          <span class="section-kicker">THIS WEEK COMPASS</span>
+          <strong>연구소 전체 업무를 Top-down으로 통합하고, Smart Hanger의 성능 검증과 제품화 허들을 먼저 제거</strong>
+        </div>
       </div>
     </header>
 
@@ -53,7 +90,7 @@
             <span class="section-index">A</span>
             <h2>RESEARCH PORTFOLIO</h2>
           </div>
-          <p>연구소 전체 상위 업무 · 행 클릭 시 Workstream 목록 확장</p>
+          <p>연구소 전체 상위 업무 · 행 클릭 시 Workstream 및 BOTTLENECK 확장</p>
         </div>
 
         <div class="portfolio-table" role="table" aria-label="연구소 전체 프로젝트">
@@ -68,19 +105,6 @@
           <div id="portfolioRows"></div>
         </div>
       </section>
-
-      <!-- [삭제 금지 / DO NOT DELETE] 추후 요청 시 주석 해제하여 즉시 재사용할 수 있도록 보존함: BOTTLENECK → ACTION
-      <section class="section bottleneck-section">
-        <div class="section-heading">
-          <div>
-            <span class="section-index">B</span>
-            <h2>BOTTLENECK → ACTION</h2>
-          </div>
-          <p>현재 판단에 직접 영향을 주는 허들만 노출 · 카드 클릭 시 상세/근거 펼침</p>
-        </div>
-        <div id="riskList" class="risk-list"></div>
-      </section>
-      -->
     </div>
 
     <!-- [삭제 금지 / DO NOT DELETE] 추후 요청 시 주석 해제하여 즉시 재사용할 수 있도록 보존함: GROUND TRUTH, CONTROL COVERAGE
@@ -136,6 +160,24 @@
       <button id="closeEvidence" type="button" aria-label="닫기">×</button>
     </div>
     <div id="evidenceBody" class="evidence-body"></div>
+  </dialog>
+
+  <!-- Monthly Done Archive Dialog (과거 완료 업무 원클릭 조회 모달) -->
+  <dialog id="archiveDialog" class="archive-dialog">
+    <div class="dialog-head">
+      <div>
+        <span class="section-kicker">CLOSED WORK ARCHIVE</span>
+        <h3 id="archiveTitle">완료 업무 아카이브 (영구 보존 원장)</h3>
+      </div>
+      <button id="closeArchive" type="button" aria-label="닫기">×</button>
+    </div>
+    <div class="archive-month-tabs" role="tablist" aria-label="월별 아카이브 탭">
+      <button class="archive-tab-btn active" data-month="2026-08">2026년 08월 완료 (5건)</button>
+      <button class="archive-tab-btn" data-month="2026-09">2026년 09월 완료 (2건)</button>
+    </div>
+    <div id="archiveBody" class="archive-body">
+      <!-- 동적 로드 내용 -->
+    </div>
   </dialog>
 
   <script src="app.js"></script>

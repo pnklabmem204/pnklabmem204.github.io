@@ -1,7 +1,10 @@
 [
   {
     "id": "risk-01",
+    "projectId": "smart-hanger",
     "severity": "progress",
+    "status": "resolved",
+    "resolutionStatus": "해결 완료",
     "title": "Smart Hanger 500mm 데모 단면 인식 문제 해결 완료 (단/양방향 실험 및 조립 재개)",
     "metric": "단/양방향 실험 후 조립 · 09/03",
     "cause": "3슬롯 케이스 조립 후 단면만 인식되던 문제의 원인 파악 및 해결 완료.",
@@ -23,7 +26,10 @@
   },
   {
     "id": "risk-02",
+    "projectId": "smart-hanger",
     "severity": "warning",
+    "status": "pending",
+    "resolutionStatus": "해결 전",
     "title": "사각 파이프 치수 변경으로 인한 레일 캡 3D 치수 축소 재출력",
     "metric": "파이프 변경 재출력 · 09/03",
     "cause": "파이프 치수 변경에 따라 사각 파이프용 레일 캡 치수 축소 재출력 필요.",
@@ -45,7 +51,10 @@
   },
   {
     "id": "risk-03",
+    "projectId": "smart-hanger",
     "severity": "progress",
+    "status": "pending",
+    "resolutionStatus": "해결 전",
     "title": "스마트 행거 실험 증빙 체계 (ADB 미러링+통합 녹화 완료, 구글 넘버링 진행)",
     "metric": "구글 넘버링 진행 · 09/03",
     "cause": "ADB 화면 미러링 및 시리얼 모니터 통합 녹화는 완료되었으며, 구글 드라이브 넘버링 폴더링 업로드 진행 중.",
@@ -67,8 +76,11 @@
   },
   {
     "id": "risk-04",
+    "projectId": "agritech",
     "severity": "warning",
-    "title": "인턴 5대 과제 산출물의 연구소 내부 자산화 미흡 위험",
+    "status": "pending",
+    "resolutionStatus": "해결 전",
+    "title": "인턴 5대 과제 산출물의 연구소 내부 자산화 미흡 위험 (비료투입기/ESP-NOW)",
     "metric": "자산화 · 09/03",
     "cause": "인턴이 구축한 ESP-NOW 1:4 통신을 1:1만 겨우 확인하거나, 비료투입기 기구 걸림 원인을 수동적으로 바라보는 인계 관성.",
     "impact": "인턴 퇴사 후 하드웨어 트러블슈팅 및 통신 코드 유지보수 불가 위험.",
@@ -85,7 +97,10 @@
   },
   {
     "id": "risk-05",
+    "projectId": "ax-it",
     "severity": "warning",
+    "status": "pending",
+    "resolutionStatus": "해결 전",
     "title": "Flutter 멀티플랫폼 실전 배포 경험 부재 및 시범사업 연결",
     "metric": "09/04",
     "cause": "플러터 크로스플랫폼의 본질인 모바일/웹 단일 코드베이스 배포 워크플로우를 실제 프로젝트에 적용해보지 못함.",
@@ -103,7 +118,10 @@
   },
   {
     "id": "risk-06",
+    "projectId": "org",
     "severity": "critical",
+    "status": "pending",
+    "resolutionStatus": "해결 전",
     "title": "선제적 확인 보고 부재 및 팀원 이중 보고(Double Reporting) 발생",
     "metric": "상시 프로토콜 · 09/01",
     "cause": "상급자가 마감 직전까지 물어봐야만 알 수 있는 수동적 보고 관성 및 팀원 작업 맥락 장악 미흡으로 소장이 팀원을 별도 호출해 재확인하는 비효율 발생.",
@@ -121,7 +139,10 @@
   },
   {
     "id": "risk-07",
+    "projectId": "ax-it",
     "severity": "warning",
+    "status": "pending",
+    "resolutionStatus": "해결 전",
     "title": "9월 시범사업 목표 달성을 위한 구체적 실행 '전략(Strategy)' 부재 위험",
     "metric": "09/02",
     "cause": "목표 설정과 전체 조망에만 머무르고, 실제 난관 돌파를 위한 구체적 방법론(전략) 없이 안일하게 맨몸으로 접근하는 관성.",

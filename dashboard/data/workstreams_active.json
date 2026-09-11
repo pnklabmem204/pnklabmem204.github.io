@@ -2,7 +2,7 @@
   {
     "id": "ws-sh-01-demo",
     "projectId": "smart-hanger",
-    "name": "데모 행거 제작 (여기에 성능 테스트가 포함된다.)",
+    "name": "데모 행거(500mm 3슬롯) 제작 및 정량 인식률 성능 검증",
     "progress": 70,
     "status": "progress",
     "targetDate": "09/15",
@@ -20,7 +20,7 @@
   {
     "id": "ws-sh-02-main",
     "projectId": "smart-hanger",
-    "name": "본 행거 제작 (여기에 모델 치수 확정과 구성 확정, 완제품 조립 및 점검, 성능 테스트가 포함된다.)",
+    "name": "본 행거(1200mm) 치수·구성 확정 및 완제품 조립·하중 성능 테스트",
     "progress": 40,
     "status": "progress",
     "targetDate": "09/15",
@@ -37,7 +37,7 @@
   {
     "id": "ws-sh-03-pipe",
     "projectId": "smart-hanger",
-    "name": "파이프 시간 경과 변형 분석",
+    "name": "파이프 시간 경과 단면 변형 분석 및 기구 공차 실측 피드백",
     "progress": 80,
     "status": "progress",
     "targetDate": "09/15",
@@ -53,14 +53,14 @@
   {
     "id": "ws-sh-04-bgm",
     "projectId": "smart-hanger",
-    "name": "BMG 재생 자동화",
+    "name": "BGM 무인 자동 재생 하드웨어 제작 및 스케줄 구동 검증",
     "progress": 65,
     "status": "risk",
     "targetDate": "09/15",
-    "goal": "무인 환경에서 독립 동작하는 BMG 재생 자동화 하드웨어 제작 및 실제 자동 재생 적용/점검",
+    "goal": "무인 환경에서 독립 동작하는 BGM 재생 자동화 하드웨어 제작 및 실제 자동 재생 적용/점검",
     "scope": "라즈베리 파이 Zero 2 W + COSY TAINER 스피커 + 유선 AUX 결합 하드웨어 제작, 지정 시간 자동 재생 스크립트 적용 및 의도 구동 점검.",
     "criteria": [
-      "BMG 자동화 하드웨어 패키징 및 시범사이트 적용 완료",
+      "BGM 자동화 하드웨어 패키징 및 시범사이트 적용 완료",
       "스케줄에 따른 무인 자동 재생/정지 의도 구동 100% 검증"
     ],
     "next": "타 작업자 구축분 구조 파악 선행 후 시범사이트 일괄 적용 및 LattePanda 연계 처리 검토",
@@ -69,7 +69,7 @@
   {
     "id": "ws-sh-05-tasmota",
     "projectId": "smart-hanger",
-    "name": "Tasmota 스마트 플러그 모듈",
+    "name": "Tasmota 스마트 플러그 전원 제어 모듈 제작 및 원격 온오프 연동",
     "progress": 60,
     "status": "progress",
     "targetDate": "09/15",
@@ -86,7 +86,7 @@
   {
     "id": "ws-sh-06-rack",
     "projectId": "smart-hanger",
-    "name": "의류인식대",
+    "name": "의류인식대 스탠딩 H/W 기구 제작 및 태그 인식 구동 검증",
     "progress": 50,
     "status": "progress",
     "targetDate": "09/15",
@@ -102,12 +102,12 @@
   {
     "id": "ws-sh-07-dashboard",
     "projectId": "smart-hanger",
-    "name": "대시보드로 구동 상황 파악 체계",
+    "name": "시범사이트 전 기자재 구동 현황 실시간 대시보드 모니터링 체계 구축",
     "progress": 50,
     "status": "progress",
     "targetDate": "09/15",
     "goal": "직접 구동해보지 않더라도 대시보드를 통해 각 하드웨어의 구동 가능 여부 및 상태를 즉시 조회할 수 있는 체계 구축",
-    "scope": "스마트 행거, Tasmota, BMG, 의류인식대, 스타일링 부스 등 각 기기의 헬스체크 및 통신 상태를 대시보드에 연동하여 원격 구동 가능 여부 실시간 모니터링.",
+    "scope": "스마트 행거, Tasmota, BGM, 의류인식대, 스타일링 부스 등 각 기기의 헬스체크 및 통신 상태를 대시보드에 연동하여 원격 구동 가능 여부 실시간 모니터링.",
     "criteria": [
       "대시보드 접속 시 각 하드웨어별 구동 가능 여부(Online/Offline/Ready) 1초 이내 표출",
       "직접 현장 구동 없이도 시스템 정상 여부 판별 100% 가능"
@@ -118,12 +118,12 @@
   {
     "id": "ws-sh-08-network",
     "projectId": "smart-hanger",
-    "name": "CC-Retail 와이파이 192.168.0.X 로 변경한 후 IP 변경에 따른 기존 구동 물품들 (앱, 스마트 행거, 스타일링부스 등) 의 IP 변경 같이 진행",
+    "name": "CC-Retail 와이파이 대역(192.168.0.X) 정비 및 연동 기기 IP 일괄 동기화",
     "progress": 30,
     "status": "progress",
     "targetDate": "09/15",
     "goal": "CC-Retail 와이파이를 192.168.0.X 대역으로 변경하고 이에 맞추어 앱, 스마트 행거, 스타일링부스 등 기존 구동 물품들의 IP 일괄 동기화 및 2층 네트워크 음영 제거",
-    "scope": "무선 공유기 CC-Retail 와이파이 대역을 192.168.0.X 로 재설정하고, 고정 IP/DHCP로 연결된 앱, 스마트 행거 제어 보드, 스타일링부스, Tasmota, BMG 기기들의 IP 주소를 변경된 대역에 맞춰 일괄 갱신 및 연동 동작 검증.",
+    "scope": "무선 공유기 CC-Retail 와이파이 대역을 192.168.0.X 로 재설정하고, 고정 IP/DHCP로 연결된 앱, 스마트 행거 제어 보드, 스타일링부스, Tasmota, BGM 기기들의 IP 주소를 변경된 대역에 맞춰 일괄 갱신 및 연동 동작 검증.",
     "criteria": [
       "CC-Retail 와이파이 대역 192.168.0.X 설정 및 2층 무선 음영 지역 0개 해소",
       "IP 변경에 따른 기존 구동 물품(앱, 스마트 행거, 스타일링부스 등) 네트워크 IP 갱신 및 정상 통신 100% 확인"

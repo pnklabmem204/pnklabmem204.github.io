@@ -87,15 +87,25 @@ const data = {
   groundTruth: [],
   coverage: {},
   nextControl: { today: [], week: [], next: [] },
-  mindset: []
+  mindset: [],
+  archiveCache: {}
 };
 
 async function loadDashboardData() {
   try {
-    const [metaRes, projectsRes, workstreamsRes, risksRes, gtRes, mindsetRes] = await Promise.all([
+    // 3-Tier 아키텍처: 살아있는 활성 업무(workstreams_active.json)를 우선 로드
+    // 만약 파일이 없을 경우 기존 workstreams.json으로 fallback
+    let workstreamsRes;
+    try {
+      workstreamsRes = await fetch("./data/workstreams_active.json");
+      if (!workstreamsRes.ok) throw new Error("workstreams_active.json not found");
+    } catch {
+      workstreamsRes = await fetch("./data/workstreams.json");
+    }
+
+    const [metaRes, projectsRes, risksRes, gtRes, mindsetRes] = await Promise.all([
       fetch("./data/meta.json"),
       fetch("./data/projects.json"),
-      fetch("./data/workstreams.json"),
       fetch("./data/risks.json"),
       fetch("./data/ground_truth.json"),
       fetch("./data/mindset.json")
@@ -108,15 +118,17 @@ async function loadDashboardData() {
     const groundTruth = await gtRes.json();
     const mindset = await mindsetRes.json();
 
-    // RDB JOIN logic: Projects + Workstreams
+    // RDB JOIN logic: Projects + Active Workstreams + Project Risks (Bottlenecks)
     const joinedProjects = rawProjects.map(p => {
       const pWorkstreams = workstreams.filter(ws => ws.projectId === p.id);
+      const pRisks = risks.filter(r => r.projectId === p.id);
 
       return {
         ...p,
         main: p.isMain,
         execution: {
-          workstreams: pWorkstreams
+          workstreams: pWorkstreams,
+          risks: pRisks
         }
       };
     });
@@ -140,7 +152,7 @@ async function loadDashboardData() {
 let selectedProjectId = null; // 기본 선택된 프로젝트 없음
 let currentMode = "level2"; // 기본 모드: 2단계 모드
 let workstreamStatusFilter = "pending"; // 기본 필터: 'pending' (미완료). 옵션: 'pending' (미완료), 'completed' (완료)
-const expandedRiskIndices = new Set();
+const expandedRiskKeys = new Set();
 const expandedTruthIndices = new Set();
 const expandedWorkstreamKeys = new Set();
 
@@ -315,6 +327,62 @@ function renderPortfolio() {
       </div>
     `;
 
+    // Project Bottlenecks: 해당 프로젝트에 할당된 병목 중 '해결 전'인 것만 필터링
+    const projectRisks = project.execution?.risks || data.risks.filter(r => r.projectId === project.id);
+    const unresolvedRisks = projectRisks.filter(risk => {
+      const s = String(risk.status || risk.resolutionStatus || "").toLowerCase().trim();
+      return !(s === "resolved" || s === "pass" || s === "done" || s === "해결 완료" || s === "완료");
+    });
+
+    const riskCardsHTML = unresolvedRisks.length > 0 ? unresolvedRisks.map((risk, rIdx) => {
+      const riskKey = `${project.id}_${risk.id || rIdx}`;
+      const isExpanded = expandedRiskKeys.has(riskKey);
+      return `
+        <article class="risk-item ${isExpanded ? "expanded" : ""}" data-risk-key="${riskKey}" role="button" tabindex="0" aria-expanded="${isExpanded}">
+          <div class="risk-primary">
+            <div class="severity-label severity-${risk.severity || "warning"}">
+              <span class="status-dot"></span>${(risk.severity === "critical") ? "CRITICAL" : (risk.severity === "progress" ? "PROGRESS" : "WARNING")}
+            </div>
+            <strong class="risk-title">${risk.title}</strong>
+            <span class="risk-metric">${risk.metric || risk.deadline || ""}</span>
+            <span class="expand-icon" aria-hidden="true">${isExpanded ? "▲" : "▼"}</span>
+          </div>
+          <div class="risk-action-preview">
+            <span class="action-badge">조치</span>
+            <p>${risk.action || "-"}</p>
+          </div>
+          ${isExpanded ? `
+            <div class="risk-expanded-details">
+              ${risk.cause ? `<div class="detail-row"><span>원인</span><p>${risk.cause}</p></div>` : ""}
+              ${risk.impact ? `<div class="detail-row"><span>영향</span><p>${risk.impact}</p></div>` : ""}
+              ${risk.action ? `<div class="detail-row"><span>조치</span><p>${risk.action}</p></div>` : ""}
+              ${risk.deadline ? `<div class="detail-row"><span>기한</span><p>${risk.deadline}</p></div>` : ""}
+              ${risk.recommendation ? `<div class="detail-row"><span>추천</span><p>${risk.recommendation}</p></div>` : ""}
+              ${risk.decision ? `<div class="detail-row"><span>결정</span><p>${risk.decision}</p></div>` : ""}
+              ${risk.evidence && risk.evidence.length > 0 ? `
+                <div class="risk-evidence-divider"></div>
+                <div class="risk-inline-evidence">
+                  <span class="evidence-title">근거</span>
+                  <div class="evidence-items">
+                    ${risk.evidence.map(([ref, text]) => `
+                      <div class="evidence-item">
+                        <strong>${ref}</strong>
+                        <p>${text}</p>
+                      </div>
+                    `).join("")}
+                  </div>
+                </div>
+              ` : ""}
+            </div>
+          ` : ""}
+        </article>
+      `;
+    }).join("") : `
+      <div class="ws-empty-state">
+        <p>현재 해결 전인 병목(BOTTLENECK) 항목이 없습니다.</p>
+      </div>
+    `;
+
     return `
       <div class="portfolio-row ${selected ? "selected" : ""}" data-project-id="${project.id}">
         <div class="portfolio-row-inner" role="button" tabindex="0"
@@ -334,8 +402,9 @@ function renderPortfolio() {
           <div class="col-progress">${progressHTML(project.progress)}</div>
         </div>
 
-        <!-- 클릭 시 확장되는 상세 영역: Workstream 목록 -->
+        <!-- 클릭 시 확장되는 상세 영역: Workstream 목록 및 BOTTLENECK → ACTION -->
         <div class="portfolio-expanded-content">
+          <!-- 1. Workstream 영역 -->
           <div class="portfolio-ws-section">
             <div class="portfolio-ws-head">
               <div class="portfolio-ws-head-left">
@@ -364,6 +433,20 @@ function renderPortfolio() {
               </div>
               <div class="portfolio-workstream-list">${workstreamRowsHTML}</div>
             </div>
+          </div>
+
+          <!-- 구분선 -->
+          <div class="portfolio-section-divider" role="separator"></div>
+
+          <!-- 2. BOTTLENECK → ACTION 영역 (프로젝트 할당, 해결 전 항목만 표출) -->
+          <div class="portfolio-bottleneck-section">
+            <div class="portfolio-ws-head">
+              <div class="portfolio-ws-head-left">
+                <span class="ws-heading-title">BOTTLENECK → ACTION</span>
+                <span class="ws-heading-sub">해결 전 난관 및 대응 조치 · 카드 클릭 시 상세/근거 펼침</span>
+              </div>
+            </div>
+            <div class="portfolio-risk-list">${riskCardsHTML}</div>
           </div>
         </div>
       </div>
@@ -422,71 +505,32 @@ function renderPortfolio() {
       }
     });
   });
-}
 
-function renderRisks() {
-  const el = $("#riskList");
-  if (!el || !data.risks) return;
-  el.innerHTML = data.risks.map((risk, idx) => {
-    const isExpanded = expandedRiskIndices.has(idx);
-    return `
-      <article class="risk-item ${isExpanded ? "expanded" : ""}" data-risk-idx="${idx}" role="button" tabindex="0" aria-expanded="${isExpanded}">
-        <div class="risk-primary">
-          <div class="severity-label severity-${risk.severity}">
-            <span class="status-dot"></span>${risk.severity === "critical" ? "CRITICAL" : "WARNING"}
-          </div>
-          <strong class="risk-title">${risk.title}</strong>
-          <span class="risk-metric">${risk.metric}</span>
-          <span class="expand-icon" aria-hidden="true">${isExpanded ? "▲" : "▼"}</span>
-        </div>
-        <div class="risk-action-preview">
-          <span class="action-badge">조치</span>
-          <p>${risk.action}</p>
-        </div>
-        ${isExpanded ? `
-          <div class="risk-expanded-details">
-            <div class="detail-row"><span>원인</span><p>${risk.cause}</p></div>
-            <div class="detail-row"><span>영향</span><p>${risk.impact}</p></div>
-            <div class="detail-row"><span>조치</span><p>${risk.action}</p></div>
-            <div class="detail-row"><span>기한</span><p>${risk.deadline}</p></div>
-            <div class="detail-row"><span>추천</span><p>${risk.recommendation}</p></div>
-            <div class="detail-row"><span>결정</span><p>${risk.decision}</p></div>
-            <div class="risk-evidence-divider"></div>
-            <div class="risk-inline-evidence">
-              <span class="evidence-title">근거</span>
-              <div class="evidence-items">
-                ${risk.evidence.map(([ref, text]) => `
-                  <div class="evidence-item">
-                    <strong>${ref}</strong>
-                    <p>${text}</p>
-                  </div>
-                `).join("")}
-              </div>
-            </div>
-          </div>
-        ` : ""}
-      </article>
-    `;
-  }).join("");
-
-  document.querySelectorAll(".risk-item").forEach(card => {
-    const toggle = () => {
-      const idx = Number(card.dataset.riskIdx);
-      if (expandedRiskIndices.has(idx)) {
-        expandedRiskIndices.delete(idx);
+  // Bottleneck (Risk) 카드 클릭 시 상세/근거 펼침 토글
+  document.querySelectorAll("[data-risk-key]").forEach(riskCard => {
+    const toggleRisk = (e) => {
+      e.stopPropagation(); // 상위 이벤트 전파 방지
+      const key = riskCard.dataset.riskKey;
+      if (expandedRiskKeys.has(key)) {
+        expandedRiskKeys.delete(key);
       } else {
-        expandedRiskIndices.add(idx);
+        expandedRiskKeys.add(key);
       }
-      renderRisks();
+      renderPortfolio();
     };
-    card.addEventListener("click", toggle);
-    card.addEventListener("keydown", e => {
+    riskCard.addEventListener("click", toggleRisk);
+    riskCard.addEventListener("keydown", e => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        toggle();
+        e.stopPropagation();
+        toggleRisk(e);
       }
     });
   });
+}
+
+function renderRisks() {
+  // 기존 독립 섹션(#riskList) 제거됨에 따라 각 프로젝트 하위(renderPortfolio)로 통합됨
 }
 
 function truthBullet(row) {
@@ -608,6 +652,95 @@ function renderCoverage() {
   }
 }
 
+// ==========================================
+// 월별 캘린더 렌더링 (일~토, 오늘 하이라이트, 프로젝트 마감일 뱃지 & 호버 툴팁)
+// ==========================================
+function renderMonthlyCalendar() {
+  const container = $("#calendarDays");
+  const titleEl = $("#calendarMonthTitle");
+  if (!container) return;
+
+  const kst = getKSTToday(); // { year: 2026, month: 8 (9월), day: 7 }
+  const curYear = kst.year;
+  const curMonth = kst.month; // 0-indexed (8 = 9월)
+  const todayDate = kst.day;
+
+  if (titleEl) {
+    titleEl.textContent = `${curYear}년 ${curMonth + 1}월`;
+  }
+
+  // 1. 프로젝트 목표일 이벤트 맵 구축: { dayNumber: [ { id, name, short, status, targetDate } ] }
+  const eventMap = {};
+  if (data.projects && Array.isArray(data.projects)) {
+    data.projects.forEach(p => {
+      const dStr = String(p.targetDate || "").trim();
+      const m = dStr.match(/(\d{1,2})\s*[\/.-]\s*(\d{1,2})/);
+      if (m) {
+        const pMonth = parseInt(m[1], 10);
+        const pDay = parseInt(m[2], 10);
+        // 이번 달과 일치하는 경우
+        if (pMonth === curMonth + 1) {
+          if (!eventMap[pDay]) eventMap[pDay] = [];
+          eventMap[pDay].push(p);
+        }
+      }
+    });
+  }
+
+  // 2. 월의 첫째 날 요일 및 마지막 날짜 계산
+  const firstDayOfWeek = new Date(curYear, curMonth, 1).getDay(); // 0(일) ~ 6(토)
+  const totalDaysInMonth = new Date(curYear, curMonth + 1, 0).getDate();
+
+  // 3. 그리드 HTML 생성
+  let cellsHTML = "";
+
+  // 첫째 주 시작 전 빈 칸 (이전 달 공간)
+  for (let i = 0; i < firstDayOfWeek; i++) {
+    cellsHTML += `<div class="calendar-day-cell empty" aria-hidden="true"></div>`;
+  }
+
+  // 이번 달 일자 셀들
+  for (let d = 1; d <= totalDaysInMonth; d++) {
+    const isToday = (d === todayDate);
+    const events = eventMap[d] || [];
+    const hasEvent = events.length > 0;
+    const dayOfWeek = (firstDayOfWeek + d - 1) % 7;
+    const isSunday = (dayOfWeek === 0);
+    const isSaturday = (dayOfWeek === 6);
+
+    let cellClass = "calendar-day-cell";
+    if (isToday) cellClass += " is-today";
+    if (hasEvent) cellClass += " has-event";
+    if (isSunday) cellClass += " sunday";
+    if (isSaturday) cellClass += " saturday";
+
+    // 이벤트가 있는 경우 툴팁 생성
+    let tooltipHTML = "";
+    if (hasEvent) {
+      tooltipHTML = `
+        <div class="calendar-tooltip" role="tooltip">
+          <div class="tooltip-tag">📌 ${curMonth + 1}/${d} 마감 과제 (${events.length}건)</div>
+          ${events.map(ev => `
+            <div class="tooltip-project-item">
+              <span>• <strong>${ev.short || ev.name}</strong></span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    cellsHTML += `
+      <div class="${cellClass}" tabindex="${hasEvent ? "0" : "-1"}" aria-label="${curMonth + 1}월 ${d}일${isToday ? " (오늘)" : ""}${hasEvent ? ` (마감일: ${events.map(e => e.name).join(", ")})` : ""}">
+        <span class="day-number">${d}</span>
+        ${hasEvent ? `<span class="event-marker" aria-hidden="true"></span>` : ""}
+        ${tooltipHTML}
+      </div>
+    `;
+  }
+
+  container.innerHTML = cellsHTML;
+}
+
 function renderNextControl() {
   const groups = [
     ["TODAY / 즉시 확인", data.nextControl.today],
@@ -699,10 +832,148 @@ $("#evidenceDialog").addEventListener("click", e => {
   if (e.target === $("#evidenceDialog")) closeEvidence();
 });
 
+// ==========================================
+// 3-Tier 아키텍처: 과거 완료 업무 아카이브 모달 로더
+// ==========================================
+let currentArchiveMonth = "2026-08";
+
+async function loadArchiveData(month) {
+  if (data.archiveCache[month]) {
+    return data.archiveCache[month];
+  }
+  try {
+    const res = await fetch(`./data/archive/done_${month}.json`);
+    if (!res.ok) throw new Error(`Archive done_${month}.json not found`);
+    const list = await res.json();
+    data.archiveCache[month] = list;
+    return list;
+  } catch (err) {
+    console.error(`Failed to load archive for ${month}:`, err);
+    return [];
+  }
+}
+
+async function renderArchiveModal(month = currentArchiveMonth) {
+  currentArchiveMonth = month;
+  const container = $("#archiveBody");
+  if (!container) return;
+
+  // 탭 활성화 상태 동기화
+  const tabs = document.querySelectorAll(".archive-tab-btn");
+  tabs.forEach(tab => {
+    tab.classList.toggle("active", tab.dataset.month === month);
+  });
+
+  container.innerHTML = `<div class="archive-loading">아카이브 원장 로딩 중... (${month})</div>`;
+  const items = await loadArchiveData(month);
+
+  if (!items || items.length === 0) {
+    container.innerHTML = `
+      <div class="archive-empty">
+        <p>${month}월에 완료되어 아카이브된 업무 내역이 없습니다.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="archive-summary-box">
+      <span><strong>${month}월 완수 총계:</strong> ${items.length}건</span>
+      <span class="archive-tip">※ 완료된 업무는 영구 보존되며, 관련 회의록 및 도면 원문 앵커로 직접 점프할 수 있습니다.</span>
+    </div>
+    <div class="archive-list">
+      ${items.map((item, idx) => `
+        <div class="archive-card">
+          <div class="archive-card-head">
+            <div class="archive-title-group">
+              <span class="archive-num">#${idx + 1}</span>
+              <span class="archive-project-tag">${item.projectId}</span>
+              <strong class="archive-name">${item.name}</strong>
+            </div>
+            <div class="archive-date-badge">
+              <span class="badge-label">완수일</span>
+              <strong>${item.closedDate || item.targetDate || "-"}</strong>
+            </div>
+          </div>
+          ${item.goal ? `<p class="archive-goal"><strong>목표:</strong> ${item.goal}</p>` : ""}
+          ${item.criteria && item.criteria.length > 0 ? `
+            <div class="archive-criteria-wrap">
+              <span class="criteria-label">완료 검증 기준:</span>
+              <ul class="archive-criteria-list">
+                ${item.criteria.map(c => `<li>${c}</li>`).join("")}
+              </ul>
+            </div>
+          ` : ""}
+          <div class="archive-footer-row">
+            <div class="archive-deep-context">
+              ${item.deepContext ? `
+                <a href="${item.deepContext}" target="_blank" rel="noopener noreferrer" class="deep-context-link">
+                  <span>📄 원천 근거/회의록 조회 (${item.deepContext})</span>
+                </a>
+              ` : `<span class="deep-context-text">${item.evidenceDate || ""}</span>`}
+            </div>
+            ${item.links && item.links.length > 0 ? `
+              <div class="archive-sub-links">
+                ${item.links.map(l => {
+                  const href = typeof l === "string" ? l : (l.url || "#");
+                  const title = typeof l === "string" ? l : (l.title || "링크");
+                  return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="archive-sub-link">🔗 ${title}</a>`;
+                }).join("")}
+              </div>
+            ` : ""}
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function openArchiveModal() {
+  const dialog = $("#archiveDialog");
+  if (!dialog) return;
+  renderArchiveModal(currentArchiveMonth);
+  if (typeof dialog.showModal === "function") dialog.showModal();
+  else dialog.setAttribute("open", "open");
+}
+
+function closeArchiveModal() {
+  const dialog = $("#archiveDialog");
+  if (!dialog) return;
+  if (typeof dialog.close === "function") dialog.close();
+  else dialog.removeAttribute("open");
+}
+
+// 이벤트 핸들러 바인딩
+const btnOpenArchive = $("#btnOpenArchive");
+if (btnOpenArchive) {
+  btnOpenArchive.addEventListener("click", openArchiveModal);
+}
+
+const btnCloseArchive = $("#closeArchive");
+if (btnCloseArchive) {
+  btnCloseArchive.addEventListener("click", closeArchiveModal);
+}
+
+const archiveDialogEl = $("#archiveDialog");
+if (archiveDialogEl) {
+  archiveDialogEl.addEventListener("click", e => {
+    if (e.target === archiveDialogEl) closeArchiveModal();
+  });
+}
+
+// 아카이브 월별 탭 클릭 이벤트
+document.querySelectorAll(".archive-tab-btn").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    const month = e.currentTarget.dataset.month;
+    if (month) renderArchiveModal(month);
+  });
+});
+
 async function initDashboard() {
   setMode("level1"); // 기본 모드: 1단계 모드 (통합 확장형 포트폴리오 뷰)
   const success = await loadDashboardData();
   if (success) {
+    renderMonthlyCalendar();
     renderPortfolio();
     renderRisks();
     renderGroundTruth();

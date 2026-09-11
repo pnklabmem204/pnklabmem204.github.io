@@ -1,0 +1,55 @@
+[
+  {
+    "id": "ws-smart-hanger-03",
+    "projectId": "smart-hanger",
+    "name": "스마트 행거 파이프 자재 발주 (아연도금 각파이프 25×25×1.4t 6본 및 부자재)",
+    "progress": 100,
+    "status": "pass",
+    "targetDate": "09/03",
+    "closedDate": "09/03",
+    "goal": "스마트 행거 사각 아연도금 파이프(25×25×1.4t, 1,000mm 6본, 잔재 6cm 포함 약 4만 원) 네이버 쇼핑 주문 및 결제 완료, 조절발 재활용 및 마감캡 3D 출력 확정",
+    "scope": "스테인리스(6만 원) 및 알루미늄(변형) 배제 후 아연도금 각파이프(25×25×1.4t, 1,000mm 6본) 네이버 쇼핑 결제 완료. 판매처에 잔재(6cm) 포함 배송 요청 문자 발송. 기존 파이프 탈거 조절발 재활용 및 마감캡 3D 출력으로 부자재 비용 절감.",
+    "criteria": [
+      "아연도금 파이프 25×25×1.4t 6본(총 5,940mm + 잔재 60mm) 네이버 쇼핑 결제 완료 (PASS, 09/03)",
+      "판매처 배송 메시지 및 잔재 포함 발송 요청 문자 전송 완료 (PASS, 09/03)",
+      "기존 파이프 탈거 조절발 재활용 및 마감 사각 엔드캡 3D 출력 대체로 배송비(3,000원) 및 부품비 절감 완료 (PASS, 09/03)"
+    ],
+    "links": [
+      {
+        "title": "파이프 소재 비교 및 주문 관리 (16_pipe-material-order)",
+        "url": "../../../02.Sprint/00.2026/JSB-DevTest/16_pipe-material-order/README.md"
+      },
+      {
+        "title": "중간용 본행거 부품 구매 요청서 (pipe-order-request.html)",
+        "url": "../../../02.Sprint/00.2026/JSB-DevTest/16_pipe-material-order/pipe-order-request.html"
+      }
+    ],
+    "next": "파이프 입고 확인 및 슬라이딩 레일 지그 체결 검증",
+    "evidenceDate": "09/03 회의 · 아연도금 파이프 네이버 결제 완료, 조절발 재활용 및 마감캡 3D 출력 확정 (09/03 완수)",
+    "deepContext": "2026/09/README.md"
+  },
+  {
+    "id": "ws-org-06",
+    "projectId": "org",
+    "name": "9월 신규 인력 온보딩 준비 및 일정 조율",
+    "progress": 100,
+    "status": "pass",
+    "targetDate": "09/01",
+    "closedDate": "09/01",
+    "goal": "9월 1일 신규 투입 인력의 연구소 온보딩 준비 및 업무 배정 일정 조율",
+    "scope": "신규 인력 온보딩 프로세스 준비, 개발/연구 환경 계정 및 장비 세팅, 9/1(화) 업무 보고 및 온보딩 점검 회의 준비.",
+    "criteria": [
+      "신규 인력 온보딩 체크리스트 및 환경 세팅 완료",
+      "9/1(화) 온보딩 및 업무 분장 확정"
+    ],
+    "links": [
+      {
+        "title": "26년 하반기 인턴십 온보딩 가이드",
+        "url": "https://worklens.pnkslab.com/a/26%EB%85%84-%ED%95%98%EB%B0%98%EA%B8%B0-%EC%9D%B8%ED%84%B4%EC%8B%AD-%EC%98%A8%EB%B3%B4%EB%94%A9-%EA%B0%80%EC%9D%B4%EB%93%9C/index.html"
+      }
+    ],
+    "next": "9/1(화) 신규 인력 온보딩 준비 및 환경 세팅/업무 조율 완료 (PASS)",
+    "evidenceDate": "08/28 회의 · 09/01 완료",
+    "deepContext": "2026/09/README.md"
+  }
+]

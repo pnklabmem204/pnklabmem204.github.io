@@ -26,22 +26,27 @@ npx serve .
 
 ---
 
-## 📂 파일 및 데이터베이스 아키텍처
+## 📂 파일 및 데이터베이스 아키텍처 (3-Tier 점진적 상세화 모델)
 
-UI 렌더링 로직(`app.js`)과 데이터(`data/*.json`)가 완전히 분리되어 있으며, 향후 실제 서버의 RDB(PostgreSQL, SQLite 등) 마이그레이션을 고려하여 **도메인별 정규화된 JSON 테이블 구조**로 설계되었습니다.
+UI 렌더링 로직(`app.js`)과 데이터(`data/*.json`)가 완전히 분리되어 있으며, 토큰 효율성과 과거 이력 영구 보존을 위해 **3-Tier 상태 분할 모델**이 적용되어 있습니다.
 
 ```text
 personal/dashboard/
-├── index.html               # 대시보드 마크업 구조
-├── styles.css               # UI 디자인 및 100vh 반응형 스타일
-├── app.js                   # UI 렌더링, 이벤트 핸들러 및 JSON RDB Join 로더
+├── index.html               # 대시보드 마크업 구조 (아카이브 모달 포함)
+├── styles.css               # UI 디자인, 100vh 반응형 및 아카이브 카드 스타일
+├── app.js                   # UI 렌더링, Tier 1 활성 데이터 및 Tier 2 온디맨드 아카이브 로더
 ├── README.md                # 대시보드 문서 및 운영 가이드
 └── data/                    # [JSON Database] 정규화된 도메인별 데이터 테이블
     ├── meta.json            # 대시보드 종합 요약, 커버리지 지표 및 Next Control
-    ├── projects.json        # [Table: projects] 4대 핵심 프로젝트 마스터 (PK: id)
-    ├── workstreams.json     # [Table: workstreams] 세부 실행 태스크 (FK: projectId)
+    ├── projects.json        # [Table: projects] 4대 핵심 프로젝트 마스터 (L1 Workspace)
+    ├── workstreams_active.json # [Tier 1: Active Buffer] 현재 살아있는 업무만 보관 (~30건, 토큰 52% 절감)
+    ├── workstreams.json     # [전체 통합본] 기존 호환성 유지용 풀 테이블
     ├── risks.json           # [Table: risks] 핵심 리스크 및 의사결정 매트릭스
-    └── ground_truth.json    # [Table: ground_truth] 정량 실측치/성공기준 지표
+    ├── ground_truth.json    # [Table: ground_truth] 정량 실측치/성공기준 지표
+    ├── mindset.json         # [Table: mindset] 소장 3대 행동 철학
+    └── archive/             # [Tier 2: Monthly Done Archive] 완료된 업무 영구 보존 원장
+        ├── done_2026-08.json # 2026년 8월 완수 업무 (5건) + deepContext 원문 링크
+        └── done_2026-09.json # 2026년 9월 완수 업무 (2건) + deepContext 원문 링크
 ```
 
 ### 🗄️ JSON 테이블 관계 다이어그램 (ERD)
